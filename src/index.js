@@ -4,6 +4,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const { getDataHades } = require("./utils/getDataHades");
 const { getDataGoat } = require("./utils/getDataGoat");
+const { getDataEden } = require("./utils/getDataEden");
+const { settingTable } = require("./utils/settingTable");
 
 // Configure dotenv
 require("dotenv").config();
@@ -32,10 +34,20 @@ app.get("/", (req, res) => {
 
 app.get("/getData", async (req, res) => {
   try {
-    console.log("runnnnnnnn");
     const dataHades = await getDataHades();
     const dataGoat = await getDataGoat();
+    const dataEden = await getDataEden();
     return res.status(200).json(dataGoat);
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json(error.message);
+  }
+});
+
+app.get("/settingTable", async (req, res) => {
+  try {
+    const dataTable = await settingTable();
+    return res.status(200).json(dataTable);
   } catch (error) {
     console.log(error);
     return res.status(200).json(error.message);
