@@ -19,7 +19,9 @@ const getDataGoat = async () => {
       collectionImage: item.image,
       collectionName: item.name,
       bestAsk: parseFloat(item.floorPrice) / 1000000000 || 0,
-      bestBid: parseFloat(item.bestOffer) / 1000000000 || 0,
+      bestBid:
+        (parseFloat(item.bestOffer) / 10000000 || 0) *
+        (parseFloat(item.floorPrice) / 1000000000 || 0),
     }));
 
     if (filterList.length > 0) {
