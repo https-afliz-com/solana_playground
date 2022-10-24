@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const { getDataHades } = require("./utils/getDataHades");
 const { getDataGoat } = require("./utils/getDataGoat");
 const { getDataEden } = require("./utils/getDataEden");
+const { getDataTensor } = require("./utils/getDataTensor");
 const { settingTable } = require("./utils/settingTable");
 
 // Configure dotenv
@@ -37,6 +38,7 @@ app.get("/getData", async (req, res) => {
     const dataHades = await getDataHades();
     const dataGoat = await getDataGoat();
     const dataEden = await getDataEden();
+    const dataTensor = await getDataTensor();
     return res.status(200).json(dataGoat);
   } catch (error) {
     console.log(error);
