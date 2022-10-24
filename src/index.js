@@ -6,7 +6,7 @@ const { getDataHades } = require("./utils/getDataHades");
 const { getDataGoat } = require("./utils/getDataGoat");
 const { getDataEden } = require("./utils/getDataEden");
 const { getDataTensor } = require("./utils/getDataTensor");
-const { settingTable } = require("./utils/settingTable");
+const { settingTable, getTable } = require("./utils/settingTable");
 
 // Configure dotenv
 require("dotenv").config();
@@ -35,11 +35,13 @@ app.get("/", (req, res) => {
 
 app.get("/getData", async (req, res) => {
   try {
-    // const dataHades = await getDataHades();
-    // const dataGoat = await getDataGoat();
-    // const dataEden = await getDataEden();
+    const dataHades = await getDataHades();
+    const dataGoat = await getDataGoat();
+    const dataEden = await getDataEden();
     const dataTensor = await getDataTensor();
-    return res.status(200).json(dataTensor);
+    if (dataEden && dataGoat && dataTensor && dataHades) {
+      return res.status(200).json("Done Job getData");
+    }
   } catch (error) {
     console.log(error);
     return res.status(200).json(error.message);
@@ -49,6 +51,16 @@ app.get("/getData", async (req, res) => {
 app.get("/settingTable", async (req, res) => {
   try {
     const dataTable = await settingTable();
+    return res.status(200).json(dataTable);
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json(error.message);
+  }
+});
+
+app.get("/getTable", async (req, res) => {
+  try {
+    const dataTable = await getTable();
     return res.status(200).json(dataTable);
   } catch (error) {
     console.log(error);

@@ -2,7 +2,7 @@ const EdenModel = require("../models/Eden");
 const axios = require("axios");
 const GoatModel = require("../models/Goat");
 const HadesModel = require("../models/Hades");
-const TensorModel = require("../models/Tensor")
+const TensorModel = require("../models/Tensor");
 const TableModel = require("../models/Table");
 const uuidV4 = require("uuid").v4;
 
@@ -28,18 +28,20 @@ const settingTable = async () => {
 
       return {
         collectionName: item.collectionName,
-        bestAskRes: [
-          { tensor: tensorDBItem?.bestAsk || 0 },
-          { hades: hadesDBItem?.bestAsk || 0 },
-          { goat: goatDBItem?.bestAsk || 0 },
-          { eden: item.bestAsk },
-        ],
-        bestBidRes: [
-          { tensor: tensorDBItem?.bestBid || 0 },
-          { hades: hadesDBItem?.bestBid || 0 },
-          { goat: goatDBItem?.bestBid || 0 },
-          { eden: item.bestBid },
-        ],
+        collectionImage: item.collectionImage,
+        bestAskRes: {
+          tensor: tensorDBItem?.bestAsk || 0,
+          hades: hadesDBItem?.bestAsk || 0,
+          goat: goatDBItem?.bestAsk || 0,
+          eden: item.bestAsk || 0,
+        },
+
+        bestBidRes: {
+          tensor: tensorDBItem?.bestBid || 0,
+          hades: hadesDBItem?.bestBid || 0,
+          goat: goatDBItem?.bestBid || 0,
+          eden: item.bestBid,
+        },
       };
     });
     if (filterList.length > 0) {
@@ -49,6 +51,13 @@ const settingTable = async () => {
   }
 };
 
+const getTable = async () => {
+  const tableDB = await TableModel.find({});
+
+  return tableDB;
+};
+
 module.exports = {
   settingTable,
+  getTable,
 };

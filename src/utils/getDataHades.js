@@ -15,7 +15,6 @@ const getDataHades = async () => {
       bestAsk: parseFloat(item.floorPrice),
       bestBid: parseFloat(item.bestoffer),
     }));
-    console.log(filterList[0]);
     if (filterList.length > 0) {
       const addHades = await HadesModel.insertMany(filterList);
       return addHades;
