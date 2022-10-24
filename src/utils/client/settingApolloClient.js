@@ -83,3 +83,4 @@ const {
     console.log(results);
   })();
 
+module.exports = settingApolloClient;
