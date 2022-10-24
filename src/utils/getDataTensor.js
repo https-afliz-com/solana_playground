@@ -1,21 +1,19 @@
 const TensorModel = require("../models/Tensor");
-const axios = require("axios");
 const uuidV4 = require("uuid").v4;
 
-const tensorUrl = "https://api.tensor.so/graphql";
+const client = require("./client/settingApolloClient").allInstrumentsTV2;
 
 const getDataTensor = async () => {
-  const data = await axios.get(tensorUrl);
-  if (data.data) {
+  const data = await client();
+  if (data) {
     await TensorModel.deleteMany();
-    const filterList = data.data.map((item) => ({
+    const filterList = data.map((item) => ({
       collectionID: uuidV4(),
-      collectionImage: item.collectionImage,
-      collectionName: item.collectionName,
-      bestAsk: parseFloat(item.floorPrice),
-      bestBid: parseFloat(item.bestoffer),
+      collectionImage: item.imageUri,
+      collectionName: item.name,
+      bestAsk: parseFloat(item.meFloorPrice),
+      bestBid: parseFloat(item.statsTSwap.sellNowPrice),
     }));
-    console.log(filterList[0]);
     if (filterList.length > 0) {
       const addTensor = await TensorModel.insertMany(filterList);
       return addTensor;
