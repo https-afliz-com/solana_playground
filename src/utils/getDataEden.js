@@ -20,7 +20,6 @@ const getDataEden = async () => {
         bestBid: bestTmp,
       };
     });
-    console.log(filterList[0]);
 
     if (filterList.length > 0) {
       const addHades = await EdenModel.insertMany(filterList);
