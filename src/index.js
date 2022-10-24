@@ -35,9 +35,9 @@ app.get("/", (req, res) => {
 
 app.get("/getData", async (req, res) => {
   try {
-    // const dataHades = await getDataHades();
-    // const dataGoat = await getDataGoat();
-    // const dataEden = await getDataEden();
+    const dataHades = await getDataHades();
+    const dataGoat = await getDataGoat();
+    const dataEden = await getDataEden();
     const dataTensor = await getDataTensor();
     return res.status(200).json(dataTensor);
   } catch (error) {
