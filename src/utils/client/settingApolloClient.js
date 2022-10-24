@@ -7,7 +7,7 @@ const {
   const { ApolloLink, concat } = require("apollo-link");
   const fetch = require("cross-fetch");
   
-  const API_KEY = process.env.TENSOR_API_KEY ?? "";
+  const API_KEY = process.env.TENSOR_API_KEY ?? "666b4c68-35d9-4f5a-b9e8-1f9eb48a6391";
   if (!API_KEY) throw new Error("please specify envvar TENSOR_API_KEY");
   
   // Setup Apollo client.
