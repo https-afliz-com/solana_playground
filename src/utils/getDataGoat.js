@@ -3,13 +3,14 @@ const axios = require("axios");
 const uuidV4 = require("uuid").v4;
 
 const goatUrl =
-  "https://corsanywhere.herokuapp.com/https://goatswap.xyz/api/trpc/collectionMetas.all";
+  // "https://corsanywhere.herokuapp.com/https://goatswap.xyz/api/trpc/collectionMetas.all";
+  "https://goatswap.xyz/api/trpc/collectionMetas.all";
 
 const getDataGoat = async () => {
   const response = await axios.get(goatUrl, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
+    // headers: {
+    //   "Access-Control-Allow-Origin": "*",
+    // },
   });
   if (response.data) {
     await GoatModel.deleteMany();
