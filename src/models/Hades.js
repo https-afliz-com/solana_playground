@@ -8,6 +8,9 @@ const HadesSchema = new Schema({
   collectionImage: String,
   bestAsk: Number,
   bestBid: Number,
+  numListed: Number,
+  sales1h: Number,
+  volume1h: Number,
 });
 
 const Hades = mongoose.model("hades", HadesSchema);

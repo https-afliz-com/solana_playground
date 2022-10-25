@@ -8,6 +8,9 @@ const TensorSchema = new Schema({
   collectionImage: String,
   bestAsk: Number,
   bestBid: Number,
+  numListed: Number,
+  sales1h: Number,
+  volume1h: Number,
 });
 
 const Tensor = mongoose.model("Tensor", TensorSchema);

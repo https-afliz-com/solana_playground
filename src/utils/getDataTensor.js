@@ -15,6 +15,9 @@ const getDataTensor = async () => {
       bestBid: item.statsTSwap
         ? parseFloat(item.statsTSwap?.sellNowPrice) || 0
         : 0,
+      numListed: parseFloat(item.stats.numListed) || 0,
+      sales1h: parseFloat(item.stats.sales1h) || 0,
+      volume1h: parseFloat(item.stats.volume1h) || 0,
     }));
 
     if (filterList.length > 0) {

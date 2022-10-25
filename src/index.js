@@ -2,10 +2,8 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const { getDataHades } = require("./utils/getDataHades");
-const { getDataGoat } = require("./utils/getDataGoat");
-const { getDataEden } = require("./utils/getDataEden");
-const { getDataTensor } = require("./utils/getDataTensor");
+const { fetchData } = require("./utils/fetchData");
+
 const { settingTable, getTable } = require("./utils/settingTable");
 
 // Configure dotenv
@@ -35,11 +33,8 @@ app.get("/", (req, res) => {
 
 app.get("/getData", async (req, res) => {
   try {
-    const dataHades = await getDataHades();
-    const dataGoat = await getDataGoat();
-    const dataEden = await getDataEden();
-    const dataTensor = await getDataTensor();
-    if (dataEden && dataGoat && dataTensor && dataHades) {
+    const data = await fetchData();
+    if (data) {
       return res.status(200).json("Done Job getData");
     }
   } catch (error) {
@@ -50,6 +45,7 @@ app.get("/getData", async (req, res) => {
 
 app.get("/settingTable", async (req, res) => {
   try {
+    await fetchData();
     const dataTable = await settingTable();
     return res.status(200).json(dataTable);
   } catch (error) {
@@ -60,6 +56,7 @@ app.get("/settingTable", async (req, res) => {
 
 app.get("/getTable", async (req, res) => {
   try {
+    await fetchData();
     const dataTable = await getTable();
     return res.status(200).json(dataTable);
   } catch (error) {

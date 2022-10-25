@@ -17,6 +17,24 @@ const TableSchema = new Schema({
     goat: Number,
     eden: Number,
   },
+  numListed: {
+    tensor: Number,
+    // hades: Number,
+    // goat: Number,
+    // eden: Number,
+  },
+  sales1h: {
+    tensor: Number,
+    // hades: Number,
+    // goat: Number,
+    // eden: Number,
+  },
+  volume1h: {
+    tensor: Number,
+    // hades: Number,
+    // goat: Number,
+    // eden: Number,
+  },
 });
 
 const Table = mongoose.model("Table", TableSchema);
