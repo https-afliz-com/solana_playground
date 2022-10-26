@@ -6,6 +6,8 @@ const { fetchData } = require("./utils/fetchData");
 
 const { settingTable, getTable } = require("./utils/settingTable");
 
+const { EventEmitter } = require("./services/longPolling/event");
+
 // Configure dotenv
 require("dotenv").config();
 
@@ -30,6 +32,9 @@ app.use(express.json());
 app.get("/", (req, res) => {
   return res.status(200).json("Welcome");
 });
+
+// create an instance of our event emitter
+const eventEmitter = new EventEmitter();
 
 app.get("/getData", async (req, res) => {
   try {
@@ -64,5 +69,45 @@ app.get("/getTable", async (req, res) => {
     return res.status(200).json(error.message);
   }
 });
+
+///// EventEmitter Execution
+app.get('/', function (req, res) {
+  const id = Date.now().toString(); // milliseconds of now will be fine for our case
+  var timer = null;
+  const handler = function(event) {
+     clearTimeout(timer);
+     console.log('event', event);
+     res.status(201);
+     res.end( JSON.stringify(event));
+  };
+
+  eventEmitter.register(id, handler);
+  timer = setTimeout(function(){ 
+     console.log('timeout');
+     const wasUnregistered = eventEmitter.unregister(id);
+     console.log("wasUnregistered", wasUnregistered);
+     if (wasUnregistered){
+        res.status(200);
+        res.end();
+     }
+  }, 5000);
+});
+
+
+async function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  }).catch(function() {});
+}   
+
+
+async function main() {
+  while (true) {
+     const waitTimeMS = Math.floor(Math.random() * 10000);
+     await sleep(waitTimeMS);
+     eventEmitter.fire({time: waitTimeMS});
+  }
+}
+
 
 app.listen(port, () => console.log(`Server is running port ${port}`));
