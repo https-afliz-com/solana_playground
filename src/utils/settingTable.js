@@ -35,12 +35,29 @@ const settingTable = async () => {
           goat: goatDBItem?.bestAsk || 0,
           eden: item.bestAsk || 0,
         },
-
         bestBidRes: {
           tensor: tensorDBItem?.bestBid || 0,
           hades: hadesDBItem?.bestBid || 0,
           goat: goatDBItem?.bestBid || 0,
           eden: item.bestBid,
+        },
+        numListed: {
+          tensor: tensorDBItem?.numListed || 0,
+          // hades: Number,
+          // goat: Number,
+          // eden: Number,
+        },
+        sales1h: {
+          tensor: tensorDBItem?.sales1h || 0,
+          // hades: Number,
+          // goat: Number,
+          // eden: Number,
+        },
+        volume1h: {
+          tensor: tensorDBItem?.volume1h || 0,
+          // hades: Number,
+          // goat: Number,
+          // eden: Number,
         },
       };
     });

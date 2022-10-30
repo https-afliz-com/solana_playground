@@ -43,7 +43,8 @@ const allInstrumentsTV2 = async () => {
           name
           stats {
             numListed
-            volume24h
+            sales1h
+            volume1h
           }
           tswapTVL
           statsTSwap {
