@@ -71,7 +71,9 @@ app.get("/getLogs", async (req, res) => {
   return res.status(200).json(getLog);
 });
 
-app.listen(port, () => console.log(`Server is running port ${port}`));
+app.listen(process.env.PORT || 3005, () =>
+  console.log(`Server is running port ${port}`)
+);
 
 // auto run every 30s
 setInterval(async () => {
