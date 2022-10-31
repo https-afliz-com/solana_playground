@@ -5,8 +5,6 @@ const getLogs = async () => {
   const tableDB = await TableModel.find({});
   let logsArr = [];
 
-  await LogsModel.deleteMany({});
-
   tableDB.forEach((item) => {
     const timestamp = new Date().toLocaleString("en-GB");
     const bestBidHades = item.bestBidRes.hades;
@@ -69,7 +67,8 @@ const getLogs = async () => {
   });
 
   if (logsArr.length > 0) {
-    await LogsModel.insertMany({ logs: logsArr });
+    const newLogs = new LogsModel({ logs: logsArr });
+    await newLogs.save();
   }
   return logsArr;
 };
