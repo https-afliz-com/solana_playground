@@ -9,7 +9,7 @@ const getLogs = async () => {
     const timestamp = new Date().toLocaleString("en-GB");
     const bestBidHades = item.bestBidRes.hades;
     const bestBidGoat = item.bestBidRes.goat;
-    const bestBidEden = item.bestBidRes.eden;
+    // const bestBidEden = item.bestBidRes.eden;
     const bestBidTensor = item.bestBidRes.tensor;
 
     Object.keys(item.bestAskRes).forEach((key) => {
@@ -25,19 +25,19 @@ const getLogs = async () => {
         }
       }
     });
-    Object.keys(item.bestAskRes).forEach((key) => {
-      if (item.bestAskRes[key] !== 0 && key !== "eden") {
-        if (bestBidEden > item.bestAskRes[key]) {
-          logsArr.push(
-            `${timestamp} Arb found for collection ${
-              item.collectionName
-            } when best bid on Eden is at ${bestBidEden} > best ask on ${key.toUpperCase()} at ${
-              item.bestAskRes[key]
-            }`
-          );
-        }
-      }
-    });
+    // Object.keys(item.bestAskRes).forEach((key) => {
+    //   if (item.bestAskRes[key] !== 0 && key !== "eden") {
+    //     if (bestBidEden > item.bestAskRes[key]) {
+    //       logsArr.push(
+    //         `${timestamp} Arb found for collection ${
+    //           item.collectionName
+    //         } when best bid on Eden is at ${bestBidEden} > best ask on ${key.toUpperCase()} at ${
+    //           item.bestAskRes[key]
+    //         }`
+    //       );
+    //     }
+    //   }
+    // });
     Object.keys(item.bestAskRes).forEach((key) => {
       if (item.bestAskRes[key] !== 0 && key !== "goat") {
         if (bestBidGoat > item.bestAskRes[key]) {
