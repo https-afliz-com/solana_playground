@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const { fetchData } = require("./utils/fetchData");
 
 const { settingTable, getTable } = require("./utils/settingTable");
-const { getLogs } = require("./utils/getLogs");
+const { getLogs, deleteLogs } = require("./utils/getLogs");
 
 // Configure dotenv
 require("dotenv").config();
@@ -30,6 +30,12 @@ app.use(express.json());
 //Health Check
 app.get("/", (req, res) => {
   return res.status(200).json("Welcome");
+});
+
+//Logs Deletion
+app.get("/deleteLogs", (req, res) => {
+  deleteLogs()
+  return res.status(200).json("Logs deleted");
 });
 
 app.get("/getData", async (req, res) => {

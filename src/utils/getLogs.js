@@ -1,5 +1,7 @@
 const TableModel = require("../models/Table");
 const LogsModel = require("../models/Logs");
+const moment = require('moment');
+const mongoose = require('mongoose');
 
 const getLogs = async () => {
   const tableDB = await TableModel.find({});
@@ -73,6 +75,21 @@ const getLogs = async () => {
   return logsArr;
 };
 
+const deleteLogs = async () => {
+  const older_than = moment().subtract(1, 'minutes').toDate();
+  const Logs = mongoose.connection.collections.logs
+  await Logs.find({ timestamp: { $lte: older_than } })
+  .deleteMany()
+  .then((RemoveStatus) => {
+    console.log("Documents Removed Successfully",RemoveStatus);
+  })
+  .catch((err) => {
+    console.error('something error');
+    console.error(err)
+  });
+}
+
 module.exports = {
   getLogs,
+  deleteLogs
 };
