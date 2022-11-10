@@ -7,6 +7,8 @@ const { fetchData } = require("./utils/fetchData");
 const { settingTable, getTable } = require("./utils/settingTable");
 const { getLogs, deleteLogs } = require("./utils/getLogs");
 
+const { checkBalance } = require("./utils/checkBalance")
+
 // Configure dotenv
 require("dotenv").config();
 
@@ -36,6 +38,12 @@ app.get("/", (req, res) => {
 app.get("/deleteLogs", (req, res) => {
   deleteLogs()
   return res.status(200).json("Logs deleted");
+});
+
+//checkBalance
+app.get("/checkBalance", async (req, res) => {
+  const data = await checkBalance()
+  return res.status(200).json(data);
 });
 
 app.get("/getData", async (req, res) => {
